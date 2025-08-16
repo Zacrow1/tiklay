@@ -1,0 +1,407 @@
+[33m[nodemon] 3.1.10[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): server.ts src/**/*[39m
+[33m[nodemon] watching extensions: ts,tsx,js,jsx[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.3s (785 modules)
+ GET / 200 in 5713ms
+ GET / 200 in 86ms
+ GET / 200 in 90ms
+ GET / 200 in 48ms
+ GET / 200 in 41ms
+ GET / 200 in 41ms
+ GET / 200 in 42ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ⚠ ./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 6196ms
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 340ms
+ ⚠ Cross origin request detected from preview-chat-4d3e3bb2-1c75-4f83-8d95-655b8c047bbd.space.z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ⚠ ./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 6326ms
+ ⚠ Cross origin request detected from preview-chat-4d3e3bb2-1c75-4f83-8d95-655b8c047bbd.space.z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 452ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ⚠ ./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 6043ms
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 334ms
+ ⚠ Cross origin request detected from preview-chat-4d3e3bb2-1c75-4f83-8d95-655b8c047bbd.space.z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ⚠ ./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+
+./src/components/layout/sidebar-nav.tsx
+Attempted import error: 'Event' is not exported from '__barrel_optimize__?names=Calendar,DollarSign,Event,LayoutDashboard,LogOut,MessageSquare,Settings,Users!=!lucide-react' (imported as 'Event').
+
+Import trace for requested module:
+./src/components/layout/sidebar-nav.tsx
+./src/components/layout/main-layout.tsx
+./src/app/page.tsx
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1575530488'
+}
+ GET / 500 in 6066ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (886 modules)
+ GET / 200 in 5831ms
+ GET / 200 in 70ms
+ ○ Compiling /students ...
+ ✓ Compiled /students in 2.3s (1150 modules)
+ GET /students 200 in 2447ms
+ GET /classes 200 in 2463ms
+ ✓ Compiled /_not-found in 273ms (1154 modules)
+ GET /settings 404 in 332ms
+ GET /settings 404 in 83ms
+ ✓ Compiled / in 201ms (636 modules)
+ GET / 200 in 373ms
+ GET / 200 in 61ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.2s (886 modules)
+ GET / 200 in 5667ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 6s (886 modules)
+ GET / 200 in 6452ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.3s (886 modules)
+ GET / 200 in 5726ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.5s (886 modules)
+ GET / 200 in 5979ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (886 modules)
+ GET / 200 in 5956ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (886 modules)
+ GET / 200 in 5875ms
+ ○ Compiling /classes ...
+ ✓ Compiled /classes in 1769ms (1145 modules)
+ GET /classes 200 in 1897ms
+ ○ Compiling /finances ...
+ ✓ Compiled /finances in 510ms (1164 modules)
+ GET /finances 200 in 578ms
+ GET /finances 200 in 12ms
+ GET / 200 in 19ms
+ ✓ Compiled /communication in 474ms (1185 modules)
+ GET /communication 200 in 525ms
+ ○ Compiling /settings ...
+ ✓ Compiled /settings in 511ms (1210 modules)
+ GET /settings 200 in 575ms
+ GET / 200 in 146ms
+ GET /settings 200 in 16ms
+ GET /classes 200 in 30ms
+ ○ Compiling /students ...
+ ✓ Compiled /students in 610ms (1221 modules)
+ GET /students 200 in 669ms
+ GET /students 200 in 11ms
+ GET / 200 in 15ms
+ GET / 200 in 176ms
+ GET / 200 in 68ms
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+> Ready on http://0.0.0.0:3000
+> Socket.IO server running at ws://0.0.0.0:3000/api/socketio
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (888 modules)
+ GET / 200 in 5852ms
+ GET / 200 in 78ms
+ GET / 200 in 68ms
+ GET / 200 in 94ms
+ GET / 200 in 70ms
+ ○ Compiling /students ...
+ ✓ Compiled /classes in 2.8s (1158 modules)
+ GET /classes 200 in 1141ms
+ GET /students 200 in 2972ms
+ GET /students 200 in 22ms
+ GET / 200 in 172ms
+ GET / 200 in 62ms
+ ✓ Compiled in 647ms (1018 modules)
+ GET / 200 in 233ms
+ GET / 200 in 66ms
