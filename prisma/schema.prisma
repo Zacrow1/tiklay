@@ -17,16 +17,257 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  role      UserRole @default(STUDENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  // Relations
+  studentProfile  Student?
+  teacherProfile  Teacher?
+  
+  @@map("users")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Student {
+  id        String @id @default(cuid())
+  userId    String @unique
+  firstName String
+  lastName  String
+  phone     String?
+  address   String?
+  emergencyContact String?
+  
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Relations
+  enrollments     Enrollment[]
+  payments        Payment[]
+  attendances     Attendance[]
+  eventTickets    EventTicket[]
+  
+  @@map("students")
+}
+
+model SystemConfig {
+  id                   String   @id @default(cuid())
+  medicalServiceFee   Float    @default(5000.0) // Costo del servicio médico por alumno
+  studioName          String?
+  studioPhone         String?
+  studioEmail         String?
+  studioAddress       String?
+  studioDescription   String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  @@map("system_configs")
+}
+
+model Teacher {
+  id          String @id @default(cuid())
+  userId      String @unique
+  firstName   String
+  lastName    String
+  phone       String?
+  specialty   String?
+  hourlyRate  Float?
+  spacePercentage Float @default(30.0) // Porcentaje que corresponde al espacio
+  
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Relations
+  classSchedules ClassSchedule[]
+  teacherPayments TeacherPayment[]
+  
+  @@map("teachers")
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  duration    Int      // in minutes
+  price       Float
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  classSchedules ClassSchedule[]
+  
+  @@map("activities")
+}
+
+model ClassSchedule {
+  id          String   @id @default(cuid())
+  activityId  String
+  teacherId   String
+  dayOfWeek   Int      // 0-6 (Sunday-Saturday)
+  startTime   String   // HH:MM format
+  endTime     String   // HH:MM format
+  maxStudents Int      @default(20)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  activity    Activity @relation(fields: [activityId], references: [id])
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+  
+  // Relations
+  enrollments Enrollment[]
+  attendances Attendance[]
+  
+  @@map("class_schedules")
+}
+
+model Enrollment {
+  id              String   @id @default(cuid())
+  studentId       String
+  classScheduleId String
+  enrolledAt      DateTime @default(now())
+  isActive        Boolean  @default(true)
+  
+  student         Student        @relation(fields: [studentId], references: [id])
+  classSchedule   ClassSchedule  @relation(fields: [classScheduleId], references: [id])
+  
+  @@unique([studentId, classScheduleId])
+  @@map("enrollments")
+}
+
+model Attendance {
+  id           String           @id @default(cuid())
+  studentId    String
+  classScheduleId String
+  date         DateTime
+  status       AttendanceStatus @default(PRESENT)
+  notes        String?
+  
+  student      Student         @relation(fields: [studentId], references: [id])
+  classSchedule ClassSchedule  @relation(fields: [classScheduleId], references: [id])
+  
+  @@unique([studentId, classScheduleId, date])
+  @@map("attendances")
+}
+
+model Payment {
+  id          String       @id @default(cuid())
+  studentId   String
+  amount      Float
+  method      PaymentMethod
+  status      PaymentStatus @default(PENDING)
+  description String?
+  dueDate     DateTime?
+  paidAt      DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  student     Student      @relation(fields: [studentId], references: [id])
+  
+  @@map("payments")
+}
+
+model Expense {
+  id          String    @id @default(cuid())
+  description String
+  amount      Float
+  category    ExpenseCategory
+  date        DateTime  @default(now())
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("expenses")
+}
+
+model TeacherPayment {
+  id                   String   @id @default(cuid())
+  teacherId            String
+  amount               Float
+  period               String   // e.g., "2024-01"
+  status               PaymentStatus @default(PENDING)
+  paidAt               DateTime?
+  studentCount         Int      // Número de estudiantes atendidos en el período
+  totalIncome          Float    // Ingreso total generado por el profesor
+  spaceShare           Float    // Monto que corresponde al espacio
+  medicalServiceTotal  Float    // Total del servicio médico por todos los estudiantes
+  teacherShare         Float    // Monto que corresponde al profesor
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  teacher              Teacher  @relation(fields: [teacherId], references: [id])
+  
+  @@map("teacher_payments")
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  date        DateTime
+  startTime   String   // HH:MM format
+  endTime     String   // HH:MM format
+  location    String?
+  maxAttendees Int?
+  ticketPrice Float?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  eventTickets EventTicket[]
+  
+  @@map("events")
+}
+
+model EventTicket {
+  id          String       @id @default(cuid())
+  eventId     String
+  studentId   String
+  amount      Float
+  status      PaymentStatus @default(PENDING)
+  purchasedAt DateTime?
+  createdAt   DateTime     @default(now())
+  
+  event       Event        @relation(fields: [eventId], references: [id])
+  student     Student      @relation(fields: [studentId], references: [id])
+  
+  @@unique([eventId, studentId])
+  @@map("event_tickets")
+}
+
+enum UserRole {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
+enum PaymentMethod {
+  CASH
+  TRANSFER
+  MERCADO_PAGO
+  CREDIT_CARD
+  DEBIT_CARD
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  CANCELLED
+  OVERDUE
+}
+
+enum ExpenseCategory {
+  RENT
+  UTILITIES
+  SALARIES
+  MATERIALS
+  MAINTENANCE
+  MARKETING
+  OTHER
 }
