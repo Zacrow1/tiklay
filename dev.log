@@ -405,3 +405,5 @@ Import trace for requested module:
  ✓ Compiled in 647ms (1018 modules)
  GET / 200 in 233ms
  GET / 200 in 66ms
+ GET / 200 in 58ms
+ GET / 200 in 70ms
