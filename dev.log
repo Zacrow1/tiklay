@@ -407,3 +407,4 @@ Import trace for requested module:
  GET / 200 in 66ms
  GET / 200 in 58ms
  GET / 200 in 70ms
+ GET / 200 in 66ms
