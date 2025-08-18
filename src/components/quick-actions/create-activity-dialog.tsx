@@ -142,12 +142,12 @@ export function CreateActivityDialog({ onCreateActivity }: CreateActivityDialogP
           </div>
           <div className="space-y-2">
             <Label htmlFor="dayOfWeek">Día Establecido (Opcional)</Label>
-            <Select value={formData.dayOfWeek} onValueChange={(value) => setFormData({ ...formData, dayOfWeek: value })}>
+            <Select value={formData.dayOfWeek} onValueChange={(value) => setFormData({ ...formData, dayOfWeek: value === "none" ? "" : value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Selecciona un día" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Sin día establecido</SelectItem>
+                <SelectItem value="none">Sin día establecido</SelectItem>
                 {daysOfWeek.map((day) => (
                   <SelectItem key={day.value} value={day.value.toString()}>
                     {day.label}

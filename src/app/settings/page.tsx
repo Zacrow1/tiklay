@@ -139,11 +139,14 @@ const mockTeachers = [
 export default function SettingsPage() {
   const [users, setUsers] = useState(mockUsers)
   const [activities, setActivities] = useState(mockActivities)
+  const [teachers, setTeachers] = useState<any[]>([])
+  const [systemConfig, setSystemConfig] = useState<any>(null)
   const [paymentConfig, setPaymentConfig] = useState(mockPaymentConfig)
   const [isUserDialogOpen, setIsUserDialogOpen] = useState(false)
   const [isActivityDialogOpen, setIsActivityDialogOpen] = useState(false)
   const [editingUser, setEditingUser] = useState<any>(null)
   const [editingActivity, setEditingActivity] = useState<any>(null)
+  const [loading, setLoading] = useState(false)
 
   const userForm = useForm<UserFormValues>({
     resolver: zodResolver(userFormSchema),
@@ -177,6 +180,37 @@ export default function SettingsPage() {
       spacePercentage: "",
     },
   })
+
+  // Cargar datos reales al iniciar
+  useEffect(() => {
+    loadTeachers()
+    loadSystemConfig()
+  }, [])
+
+  const loadTeachers = async () => {
+    try {
+      const response = await fetch('/api/teachers')
+      if (response.ok) {
+        const data = await response.json()
+        setTeachers(data)
+      }
+    } catch (error) {
+      console.error('Error loading teachers:', error)
+    }
+  }
+
+  const loadSystemConfig = async () => {
+    try {
+      const response = await fetch('/api/system-config')
+      if (response.ok) {
+        const data = await response.json()
+        setSystemConfig(data)
+        paymentConfigForm.setValue('medicalServiceFee', data.medicalServiceFee.toString())
+      }
+    } catch (error) {
+      console.error('Error loading system config:', error)
+    }
+  }
 
   const onSubmitUser = (data: UserFormValues) => {
     if (editingUser) {
@@ -219,9 +253,36 @@ export default function SettingsPage() {
     setEditingActivity(null)
   }
 
-  const onSubmitPaymentConfig = (data: PaymentConfigFormValues) => {
-    setPaymentConfig(data)
-    // Aquí iría la lógica para guardar la configuración
+  const onSubmitPaymentConfig = async (data: PaymentConfigFormValues) => {
+    setLoading(true)
+    try {
+      const response = await fetch('/api/system-config', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          medicalServiceFee: data.medicalServiceFee,
+          studioName: systemConfig?.studioName || "Tiklay",
+          studioPhone: systemConfig?.studioPhone || "",
+          studioEmail: systemConfig?.studioEmail || "",
+          studioAddress: systemConfig?.studioAddress || "",
+          studioDescription: systemConfig?.studioDescription || "",
+        }),
+      })
+
+      if (response.ok) {
+        const updatedConfig = await response.json()
+        setSystemConfig(updatedConfig)
+        // Aquí podrías mostrar una notificación de éxito
+      } else {
+        console.error('Error updating payment config')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleEditUser = (user: any) => {
@@ -842,9 +903,9 @@ export default function SettingsPage() {
                     </div>
                     
                     <div className="flex justify-end">
-                      <Button type="submit">
+                      <Button type="submit" disabled={loading}>
                         <Save className="mr-2 h-4 w-4" />
-                        Guardar Configuración
+                        {loading ? "Guardando..." : "Guardar Configuración"}
                       </Button>
                     </div>
                   </form>
@@ -867,10 +928,10 @@ export default function SettingsPage() {
                     <div>
                       <h3 className="text-lg font-medium mb-3">Porcentaje del Espacio por Profesor</h3>
                       <div className="space-y-3">
-                        {mockTeachers.map((teacher) => (
+                        {teachers.map((teacher) => (
                           <div key={teacher.id} className="flex items-center justify-between p-3 border rounded-lg">
                             <div>
-                              <div className="font-medium">{teacher.name}</div>
+                              <div className="font-medium">{teacher.firstName} {teacher.lastName}</div>
                               <div className="text-sm text-muted-foreground">
                                 Porcentaje actual: {teacher.spacePercentage}%
                               </div>
@@ -895,9 +956,32 @@ export default function SettingsPage() {
                     <div>
                       <h3 className="text-lg font-medium mb-3">Actualizar Porcentaje</h3>
                       <Form {...teacherConfigForm}>
-                        <form onSubmit={teacherConfigForm.handleSubmit((data) => {
-                          console.log("Actualizar porcentaje:", data)
-                          teacherConfigForm.reset()
+                        <form onSubmit={teacherConfigForm.handleSubmit(async (data) => {
+                          setLoading(true)
+                          try {
+                            const response = await fetch('/api/teachers', {
+                              method: 'PUT',
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify(data),
+                            })
+
+                            if (response.ok) {
+                              const updatedTeacher = await response.json()
+                              setTeachers(prev => prev.map(teacher => 
+                                teacher.id === updatedTeacher.id ? updatedTeacher : teacher
+                              ))
+                              teacherConfigForm.reset()
+                              // Aquí podrías mostrar una notificación de éxito
+                            } else {
+                              console.error('Error updating teacher percentage')
+                            }
+                          } catch (error) {
+                            console.error('Error:', error)
+                          } finally {
+                            setLoading(false)
+                          }
                         })} className="space-y-4">
                           <FormField
                             control={teacherConfigForm.control}
@@ -912,9 +996,9 @@ export default function SettingsPage() {
                                     </SelectTrigger>
                                   </FormControl>
                                   <SelectContent>
-                                    {mockTeachers.map((teacher) => (
+                                    {teachers.map((teacher) => (
                                       <SelectItem key={teacher.id} value={teacher.id}>
-                                        {teacher.name}
+                                        {teacher.firstName} {teacher.lastName}
                                       </SelectItem>
                                     ))}
                                   </SelectContent>
@@ -938,8 +1022,8 @@ export default function SettingsPage() {
                             )}
                           />
                           
-                          <Button type="submit" className="w-full">
-                            Actualizar Porcentaje
+                          <Button type="submit" className="w-full" disabled={loading}>
+                            {loading ? "Actualizando..." : "Actualizar Porcentaje"}
                           </Button>
                         </form>
                       </Form>
