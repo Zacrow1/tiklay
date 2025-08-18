@@ -1,210 +1,322 @@
-# Configuración Local del Proyecto Tiklay
+# Configuración Local de Tiklay
 
-## Requisitos Previos
+## 📋 Requisitos Previos
 
-1. **Node.js** (versión 18 o superior)
-2. **npm** o **yarn**
-3. **Git**
+### Software Necesario
+- **Node.js** 18 o superior
+- **MySQL** 5.7 o superior
+- **Git** para control de versiones
+- **npm** o **yarn** para gestión de paquetes
 
-## Pasos de Configuración
+### Opcional pero Recomendado
+- **MySQL Workbench** o **DBeaver** para gestión visual de la base de datos
+- **VS Code** con extensiones para desarrollo web
 
-### 1. Clonar el Repositorio
+## 🚀 Instalación y Configuración
 
+### Paso 1: Clonar el Repositorio
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/Zacrow1/tiklay.git
 cd tiklay
 ```
 
-### 2. Instalar Dependencias
+### Paso 2: Configurar MySQL
 
+#### Opción A: Usar el Script Automático (Recomendado)
 ```bash
-npm install
+# Ejecutar el script de configuración de MySQL
+./setup-mysql.sh
 ```
 
-### 3. Configurar Variables de Entorno
+Este script automáticamente:
+- Verifica si MySQL está instalado
+- Inicia el servicio MySQL
+- Crea la base de datos `tiklay_db`
+- Crea un usuario `tiklay_user` con contraseña `tiklay_password`
+- Configura los permisos necesarios
+- Actualiza el archivo `.env` con las credenciales
 
-Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+#### Opción B: Configuración Manual de MySQL
+```bash
+# 1. Verificar que MySQL esté instalado y corriendo
+mysql --version
+sudo systemctl status mysql  # Linux
+brew services list | grep mysql  # macOS
 
+# 2. Si no está instalado:
+# Ubuntu/Debian:
+sudo apt-get update
+sudo apt-get install mysql-server
+
+# macOS:
+brew install mysql
+brew services start mysql
+
+# 3. Crear base de datos
+mysql -u root -p -e "CREATE DATABASE tiklay_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 4. Crear usuario (opcional pero recomendado)
+mysql -u root -p -e "CREATE USER 'tiklay_user'@'localhost' IDENTIFIED BY 'tiklay_password';"
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON tiklay_db.* TO 'tiklay_user'@'localhost';"
+mysql -u root -p -e "FLUSH PRIVILEGES;"
+```
+
+### Paso 3: Configurar Variables de Entorno
+```bash
+# Copiar el archivo de configuración
+cp .env.example .env
+
+# Editar el archivo .env
+nano .env
+```
+
+Configura las siguientes variables:
 ```env
-# Database
-DATABASE_URL="file:./dev.db"
+# Database Configuration (MySQL)
+DATABASE_URL="mysql://tiklay_user:tiklay_password@localhost:3306/tiklay_db"
 
-# Next.js
-NEXTAUTH_SECRET="tu-secret-aqui"
+# NextAuth Configuration
 NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="tiklay-secret-key-$(date +%s)"
 
-# Mercado Pago (opcional)
-MERCADO_PAGO_PUBLIC_KEY="TEST-123456789"
-MERCADO_PAGO_ACCESS_TOKEN="TEST-987654321"
+# AI SDK Configuration (opcional)
+ZAI_API_KEY="your-zai-api-key-here"
 ```
 
-### 4. Configurar la Base de Datos
-
+### Paso 4: Instalar Dependencias
 ```bash
-# Generar Prisma Client
+# Instalar dependencias de Node.js
+npm install
+
+# Instalar dependencia de MySQL
+npm install mysql2
+```
+
+### Paso 5: Configurar la Base de Datos
+```bash
+# Generar el cliente de Prisma
 npx prisma generate
 
-# Crear la base de datos y aplicar el schema
-npm run db:push
+# Sincronizar el esquema con la base de datos
+npx prisma db push
 
-# (Opcional) Ver la base de datos
+# Verificar que la conexión funciona
 npx prisma studio
 ```
 
-### 5. Ejecutar el Servidor de Desarrollo
-
+### Paso 6: Iniciar la Aplicación
 ```bash
+# Iniciar el servidor de desarrollo
 npm run dev
 ```
 
-El proyecto estará disponible en: `http://localhost:3000`
+La aplicación estará disponible en: **http://localhost:3000**
 
-## Estructura del Proyecto
+## 🔧 Verificación de la Instalación
 
-```
-tiklay/
-├── src/
-│   ├── app/                    # Páginas de la aplicación
-│   │   ├── page.tsx           # Dashboard principal
-│   │   ├── students/          # Gestión de estudiantes
-│   │   ├── classes/           # Gestión de clases
-│   │   ├── finances/          # Gestión financiera
-│   │   ├── teacher-payments/  # Pagos de profesores
-│   │   ├── events/            # Gestión de eventos
-│   │   ├── communication/     # Comunicación interna
-│   │   └── settings/          # Configuración
-│   ├── components/
-│   │   ├── layout/            # Componentes de layout
-│   │   └── ui/                # Componentes UI de shadcn
-│   ├── hooks/                 # Custom hooks
-│   └── lib/                   # Utilidades y configuración
-├── prisma/
-│   └── schema.prisma         # Esquema de la base de datos
-├── public/                   # Archivos estáticos
-└── package.json             # Dependencias del proyecto
-```
-
-## Funcionalidades Principales
-
-### 1. Sistema de Roles
-- **Administrador**: Acceso completo a todas las funcionalidades
-- **Profesor**: Acceso a sus estudiantes, clases y pagos
-- **Estudiante**: Acceso a sus clases y pagos
-
-### 2. Gestión de Estudiantes
-- CRUD completo de estudiantes
-- Búsqueda y filtrado
-- Inscripción a clases
-
-### 3. Gestión de Clases
-- Programación de clases
-- Control de asistencia
-- Gestión de horarios
-
-### 4. Sistema Financiero
-- Pagos de estudiantes
-- Gastos operativos
-- **Pagos automáticos de profesores**
-- Balance general
-
-### 5. Pagos de Profesores (Nueva Funcionalidad)
-- Cálculo automático considerando:
-  - Porcentaje del espacio
-  - Costo del servicio médico por alumno
-- Desglose transparente de pagos
-- Integración con el balance general
-
-### 6. Configuración
-- Configuración de métodos de pago
-- Porcentajes por profesor
-- Costo del servicio médico
-
-## Comandos Útiles
-
+### 1. Verificar la Base de Datos
 ```bash
-# Desarrollo
+# Conectar a MySQL
+mysql -u tiklay_user -p tiklay_db
+
+# Listar tablas (deberías ver las tablas de Prisma)
+SHOW TABLES;
+
+# Salir de MySQL
+EXIT;
+```
+
+### 2. Verificar la Aplicación
+- Abre **http://localhost:3000** en tu navegador
+- Deberías ver la página de inicio de Tiklay
+- Prueba las diferentes secciones: Estudiantes, Clases, Finanzas, etc.
+
+### 3. Probar las Acciones Rápidas
+- En el dashboard principal, haz clic en "Acciones Rápidas"
+- Prueba crear un estudiante, una actividad, un evento y un pago
+- Verifica que los datos se guarden correctamente en la base de datos
+
+## 🛠️ Comandos Útiles
+
+### Desarrollo
+```bash
 npm run dev          # Iniciar servidor de desarrollo
-npm run build        # Construir para producción
+npm run build        # Compilar para producción
 npm run start        # Iniciar servidor de producción
-
-# Base de Datos
-npm run db:push      # Sincronizar schema con la base de datos
-npx prisma generate  # Generar Prisma Client
-npx prisma studio    # Abrir Prisma Studio
-
-# Código
-npm run lint         # Verificar calidad del código
-npm run format       # Formatear código (si está configurado)
+npm run lint         # Ejecutar linting de código
 ```
 
-## Resolución de Problemas Comunes
-
-### 1. Error de Base de Datos
-Si encuentras errores de base de datos:
+### Base de Datos
 ```bash
-# Eliminar la base de datos existente
-rm dev.db
-
-# Volver a crearla
-npm run db:push
+npx prisma db push      # Sincronizar esquema con la base de datos
+npx prisma generate     # Generar cliente Prisma
+npx prisma studio       # Abrir interfaz visual de la base de datos
+npx prisma migrate dev   # Crear migraciones (para desarrollo)
+npx prisma migrate reset # Reiniciar base de datos (¡cuidado!)
 ```
 
-### 2. Errores de Dependencias
+### MySQL
 ```bash
-# Limpiar caché de npm
-npm cache clean --force
+# Iniciar/detener servicio MySQL
+sudo systemctl start mysql   # Linux
+sudo systemctl stop mysql    # Linux
+brew services start mysql     # macOS
+brew services stop mysql      # macOS
+
+# Conectar a MySQL
+mysql -u tiklay_user -p tiklay_db
+
+# Backup de la base de datos
+mysqldump -u tiklay_user -p tiklay_db > backup.sql
+
+# Restaurar base de datos
+mysql -u tiklay_user -p tiklay_db < backup.sql
+```
+
+## 🐛 Solución de Problemas
+
+### Problemas Comunes
+
+#### 1. Error de conexión a MySQL
+```bash
+# Verificar que MySQL esté corriendo
+sudo systemctl status mysql
+
+# Si no está corriendo, iniciarlo
+sudo systemctl start mysql
+
+# Verificar las credenciales en .env
+mysql -u tiklay_user -p tiklay_db
+```
+
+#### 2. Error: "Can't reach database server"
+```bash
+# Verificar que el puerto 3306 esté abierto
+sudo netstat -tlnp | grep :3306
+
+# Si MySQL no está escuchando en localhost, editar my.cnf
+sudo nano /etc/mysql/my.cnf
+# Asegurarse de que bind-address = 127.0.0.1
+sudo systemctl restart mysql
+```
+
+#### 3. Error al generar Prisma Client
+```bash
+# Limpiar y regenerar
+rm -rf node_modules/.prisma
+npx prisma generate
 
 # Reinstalar dependencias
+npm install
+```
+
+#### 4. Problemas con permisos de MySQL
+```bash
+# Otorgar todos los permisos
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON tiklay_db.* TO 'tiklay_user'@'localhost'; FLUSH PRIVILEGES;"
+```
+
+#### 5. Error de módulos faltantes
+```bash
+# Limpiar caché e instalar
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-### 3. Errores de Prisma
+### Verificación de Logs
+
+#### Logs de la Aplicación
 ```bash
-# Regenerar Prisma Client
+# Los logs se guardan en dev.log
+tail -f dev.log
+
+# Para ver los últimos 100 líneas
+tail -n 100 dev.log
+```
+
+#### Logs de MySQL
+```bash
+# Ver logs de MySQL (Ubuntu/Debian)
+sudo tail -f /var/log/mysql/error.log
+
+# macOS
+tail -f /usr/local/var/mysql/mysql_error.log
+```
+
+## 🔄 Actualización del Proyecto
+
+### Cuando hay cambios en el esquema de la base de datos
+```bash
+# Actualizar el esquema
+npx prisma db push
+
+# Regenerar el cliente
 npx prisma generate
-
-# Verificar el schema
-npx prisma validate
 ```
 
-## Desarrollo Local
+### Cuando hay nuevas dependencias
+```bash
+# Instalar nuevas dependencias
+npm install
 
-### Acceso como Diferentes Roles
-Para probar diferentes roles, puedes modificar temporalmente el hook `useUserRole` en `src/hooks/use-user-role.ts`:
-
-```typescript
-export function useUserRole() {
-  return { role: "ADMIN" } // Cambiar a "TEACHER" o "STUDENT"
-}
+# Si hay problemas de compilación
+npm run build
 ```
 
-### Datos de Prueba
-El proyecto incluye datos mock para desarrollo. Puedes modificarlos en cada página para probar diferentes escenarios.
+## 🎯 Pruebas de Funcionalidad
 
-### Flujo de Trabajo de Desarrollo
-1. Crear una rama para tu feature
-2. Hacer los cambios necesarios
-3. Probar localmente
-4. Ejecutar `npm run lint` para verificar el código
-5. Commitear los cambios
+### 1. Probar Acciones Rápidas
+- **Crear Estudiante**: Llena el formulario y verifica que se guarde
+- **Crear Actividad**: Prueba con y sin día/horario establecido
+- **Crear Evento**: Verifica que la fecha y hora se guarden correctamente
+- **Registrar Pago**: Selecciona un estudiante y registra un pago
 
-## Contribución
+### 2. Probar la Conexión API
+```bash
+# Probar conexión a la API de estudiantes
+curl http://localhost:3000/api/students
 
-Si deseas contribuir al proyecto:
-1. Haz un fork del repositorio
-2. Crea una rama para tu feature
-3. Haz tus cambios
-4. Envía un pull request
+# Probar conexión a la API de actividades
+curl http://localhost:3000/api/activities
 
-## Soporte
+# Probar conexión a la API de eventos
+curl http://localhost:3000/api/events
+```
 
-Si encuentras algún problema o tienes preguntas:
-1. Revisa este archivo de configuración
-2. Verifica los logs del servidor
-3. Revisa la consola del navegador
-4. Contacta al equipo de desarrollo
+### 3. Probar la Base de Datos
+```bash
+# Conectar a MySQL y verificar datos
+mysql -u tiklay_user -p tiklay_db
+
+# Contar registros en cada tabla
+SELECT COUNT(*) as users_count FROM users;
+SELECT COUNT(*) as students_count FROM students;
+SELECT COUNT(*) as activities_count FROM activities;
+SELECT COUNT(*) as events_count FROM events;
+
+# Salir
+EXIT;
+```
+
+## 📚 Recursos Adicionales
+
+### Documentación
+- [Prisma Documentation](https://www.prisma.io/docs/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+- [shadcn/ui Documentation](https://ui.shadcn.com/)
+
+### Herramientas Útiles
+- **MySQL Workbench**: Herramienta visual para MySQL
+- **DBeaver**: Cliente de base de datos multiplataforma
+- **Prisma Studio**: Interfaz visual para Prisma
+- **Postman**: Para probar APIs
+
+### Comunidad
+- [GitHub Issues](https://github.com/Zacrow1/tiklay/issues)
+- [Stack Overflow](https://stackoverflow.com/)
+- [Discord/Slack]: Canales de comunidad (si están disponibles)
 
 ---
 
-¡Listo! Ahora puedes desarrollar el proyecto localmente. Si sigues estos pasos, tendrás el entorno de desarrollo completamente funcional.
+¡Listo! Ahora tienes Tiklay funcionando localmente con MySQL. Si encuentras algún problema, revisa la sección de solución de problemas o crea un issue en GitHub.

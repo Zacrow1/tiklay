@@ -29,6 +29,13 @@ Tiklay es un sistema de gestión completo para estudios de yoga y fitness, dise�
 - **Balance general** automático
 - **Reportes financieros** detallados
 
+### 🆕 Acciones Rápidas
+- **Creación rápida de estudiantes**: Diálogo modal para registro instantáneo
+- **Creación de actividades**: Con opción de establecer día y horario fijo
+- **Creación de eventos**: Eventos especiales con fecha, hora y ubicación
+- **Registro de pagos**: Múltiples métodos de pago con selección de estudiantes
+- **Integración con API**: Todas las acciones se conectan con el backend en tiempo real
+
 ### 🆕 Pagos Automáticos de Profesores
 - **Cálculo automático** considerando:
   - Porcentaje del espacio por profesor
@@ -182,7 +189,7 @@ Transferencia requerida: $135.000 + $50.000 = $185.000
 
 ### Backend
 - **API Routes** de Next.js
-- **Prisma ORM** con SQLite
+- **Prisma ORM** con MySQL
 - **Socket.io** para comunicación en tiempo real
 - **NextAuth.js** para autenticación
 
@@ -215,8 +222,8 @@ Transferencia requerida: $135.000 + $50.000 = $185.000
 
 ### Variables de Entorno
 ```env
-# Base de datos
-DATABASE_URL="file:./dev.db"
+# Base de datos MySQL
+DATABASE_URL="mysql://username:password@localhost:3306/tiklay_db"
 
 # Autenticación
 NEXTAUTH_SECRET="tu-secret-seguro"
@@ -249,8 +256,8 @@ npm start
 
 ### Base de Datos Producción
 ```bash
-# Cambiar a PostgreSQL en producción
-DATABASE_URL="postgresql://user:password@localhost:5432/tiklay"
+# Usar MySQL en producción
+DATABASE_URL="mysql://user:password@production-host:3306/tiklay_db"
 
 # Ejecutar migraciones
 npx prisma migrate deploy

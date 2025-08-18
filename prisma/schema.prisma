@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -87,6 +87,9 @@ model Activity {
   description String?
   duration    Int      // in minutes
   price       Float
+  dayOfWeek   Int?     // 0-6 (Sunday-Saturday) - día establecido
+  startTime   String?  // HH:MM format - horario establecido
+  endTime     String?  // HH:MM format - horario establecido
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

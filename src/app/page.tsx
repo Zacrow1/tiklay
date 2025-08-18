@@ -14,9 +14,33 @@ import {
   AlertCircle,
   CheckCircle
 } from "lucide-react"
+import { CreateStudentDialog } from "@/components/quick-actions/create-student-dialog"
+import { CreateActivityDialog } from "@/components/quick-actions/create-activity-dialog"
+import { CreateEventDialog } from "@/components/quick-actions/create-event-dialog"
+import { CreatePaymentDialog } from "@/components/quick-actions/create-payment-dialog"
 
 export default function Home() {
   const { role } = useUserRole()
+
+  const handleCreateStudent = (student: any) => {
+    console.log('Student created:', student)
+    // Aquí puedes agregar lógica adicional como mostrar una notificación
+  }
+
+  const handleCreateActivity = (activity: any) => {
+    console.log('Activity created:', activity)
+    // Aquí puedes agregar lógica adicional como mostrar una notificación
+  }
+
+  const handleCreateEvent = (event: any) => {
+    console.log('Event created:', event)
+    // Aquí puedes agregar lógica adicional como mostrar una notificación
+  }
+
+  const handleCreatePayment = (payment: any) => {
+    console.log('Payment created:', payment)
+    // Aquí puedes agregar lógica adicional como mostrar una notificación
+  }
 
   const getDashboardContent = () => {
     switch (role) {
@@ -135,18 +159,10 @@ export default function Home() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <Button className="w-full justify-start">
-                    <Users className="mr-2 h-4 w-4" />
-                    Agregar Estudiante
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Crear Clase
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <DollarSign className="mr-2 h-4 w-4" />
-                    Registrar Pago
-                  </Button>
+                  <CreateStudentDialog onCreateStudent={handleCreateStudent} />
+                  <CreateActivityDialog onCreateActivity={handleCreateActivity} />
+                  <CreateEventDialog onCreateEvent={handleCreateEvent} />
+                  <CreatePaymentDialog onCreatePayment={handleCreatePayment} />
                 </CardContent>
               </Card>
             </div>
