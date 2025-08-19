@@ -378,6 +378,7 @@ Si encuentras algún problema o tienes preguntas:
 - **Documentation**: [Wiki del Proyecto](https://github.com/Zacrow1/tiklay/wiki)
 - **Issues**: [GitHub Issues](https://github.com/Zacrow1/tiklay/issues)
 - **Electron Documentation**: [ELECTRON_README.md](./ELECTRON_README.md)
+- **Windows Setup Guide**: [WINDOWS_SETUP.md](./WINDOWS_SETUP.md)
 
 ---
 
