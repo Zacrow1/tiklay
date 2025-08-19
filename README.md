@@ -62,6 +62,32 @@ Tiklay es un sistema de gestión completo para estudios de yoga y fitness, dise�
 - **Ajustes de porcentajes** por profesor
 - **Costos configurables** de servicios
 
+### 🆕 Aplicación Desktop (Electron)
+- **Multi-plataforma**: Windows, macOS y Linux
+- **Interfaz nativa** con menús y atajos de teclado
+- **Instaladores profesionales**: NSIS (Windows), DMG (macOS), AppImage (Linux)
+- **Comunicación segura** entre procesos con IPC
+- **Integración con sistema operativo**:
+  - Notificaciones nativas
+  - Gestión de ventanas nativas
+  - Acceso a sistema de archivos
+  - Integración con calendario del sistema
+- **Funcionalidades offline** con sincronización automática
+- **Auto-actualización** automática (próximamente)
+
+#### Atajos de Teclado Desktop
+- **Ctrl+N**: Crear nueva actividad
+- **Ctrl+E**: Crear nuevo evento
+- **F11**: Toggle pantalla completa
+- **Ctrl+R**: Recargar aplicación
+- **Ctrl+Shift+I**: Abrir herramientas de desarrollador
+
+#### Menú Nativo
+- **Archivo**: Nuevo, Guardar, Salir
+- **Editar**: Deshacer, Rehacer, Cortar, Copiar, Pegar
+- **Vista**: Recargar, Pantalla completa, Herramientas de desarrollador
+- **Ayuda**: Documentación, Acerca de
+
 ## 🚀 Quick Start
 
 ### Requisitos
@@ -69,17 +95,32 @@ Tiklay es un sistema de gestión completo para estudios de yoga y fitness, dise�
 - npm o yarn
 - Git
 
-### Instalación Rápida
+### Opciones de Ejecución
+
+#### 🌐 Versión Web (Navegador)
 ```bash
 # Clonar el repositorio
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/Zacrow1/tiklay.git
 cd tiklay
 
 # Ejecutar script de configuración
 ./setup.sh
 
-# Iniciar servidor de desarrollo
+# Iniciar servidor de desarrollo web
 npm run dev
+```
+
+#### 💻 Versión Desktop (Electron)
+```bash
+# Clonar el repositorio
+git clone https://github.com/Zacrow1/tiklay.git
+cd tiklay
+
+# Ejecutar script de configuración
+./setup.sh
+
+# Iniciar aplicación desktop en modo desarrollo
+npm run electron-dev
 ```
 
 ### Instalación Manual
@@ -95,8 +136,12 @@ cp .env.example .env
 npx prisma generate
 npm run db:push
 
-# 4. Iniciar desarrollo
+# 4. Elegir modo de ejecución
+# Para versión web:
 npm run dev
+
+# Para versión desktop:
+npm run electron-dev
 ```
 
 ## 📁 Estructura del Proyecto
@@ -119,13 +164,18 @@ tiklay/
 │   │   └── payments-student/  # Vista de estudiantes
 │   ├── components/
 │   │   ├── layout/            # Layout components
-│   │   └── ui/                # shadcn/ui components
+│   │   ├── ui/                # shadcn/ui components
+│   │   └── electron/          # 🆕 Electron components
 │   ├── hooks/                 # Custom React hooks
 │   └── lib/                   # Utilities y configuración
 ├── prisma/
 │   └── schema.prisma         # Database schema
 ├── public/                   # Static assets
-└── docs/                     # Documentación
+│   └── icon.png              # 🆕 App icon for Electron
+├── docs/                     # Documentación
+├── main.js                   # 🆕 Electron main process
+├── preload.js                # 🆕 Electron preload script
+└── next.config.electron.js   # 🆕 Electron-specific config
 ```
 
 ## 🎯 Flujo de Trabajo Principal
@@ -193,6 +243,13 @@ Transferencia requerida: $135.000 + $50.000 = $185.000
 - **Socket.io** para comunicación en tiempo real
 - **NextAuth.js** para autenticación
 
+### 🆕 Desktop (Electron)
+- **Electron 37.3.1** para aplicaciones de escritorio
+- **Express.js** integrado para servidor local
+- **electron-builder** para empaquetado multiplataforma
+- **IPC Communication** para comunicación segura entre procesos
+- **Native Menus** y atajos de teclado personalizados
+
 ### Desarrollo
 - **ESLint** para calidad de código
 - **Prettier** para formato (opcional)
@@ -245,7 +302,7 @@ Z_AI_API_KEY="tu-api-key"
 
 ## 🚀 Despliegue
 
-### Producción
+### 🌐 Versión Web
 ```bash
 # Construir la aplicación
 npm run build
@@ -253,6 +310,26 @@ npm run build
 # Iniciar servidor de producción
 npm start
 ```
+
+### 💻 Versión Desktop (Electron)
+```bash
+# Construir aplicación desktop para desarrollo
+npm run electron-build
+
+# Construir para plataformas específicas
+npm run electron-build:win    # Windows
+npm run electron-build:mac     # macOS
+npm run electron-build:linux   # Linux
+
+# Construir para todas las plataformas
+npm run electron-build:all
+```
+
+#### Distribución Desktop
+La aplicación genera instaladores para:
+- **Windows**: `.exe` (NSIS installer)
+- **macOS**: `.dmg` (DMG image)
+- **Linux**: `.AppImage` (portable application)
 
 ### Base de Datos Producción
 ```bash
@@ -298,14 +375,16 @@ Si encuentras algún problema o tienes preguntas:
 
 ### Contacto
 - **Email**: soporte@tiklay.com
-- **Documentation**: [Wiki del Proyecto](https://github.com/tu-repo/tiklay/wiki)
-- **Issues**: [GitHub Issues](https://github.com/tu-repo/tiklay/issues)
+- **Documentation**: [Wiki del Proyecto](https://github.com/Zacrow1/tiklay/wiki)
+- **Issues**: [GitHub Issues](https://github.com/Zacrow1/tiklay/issues)
+- **Electron Documentation**: [ELECTRON_README.md](./ELECTRON_README.md)
 
 ---
 
 ## 🎯 Roadmap
 
 ### Próximas Features
+- [x] **Desktop App** versión con Electron ✅
 - [ ] **Móvil App** versión nativa
 - [ ] **Integración con Google Calendar**
 - [ ] **Sistema de membresías** y suscripciones
@@ -320,6 +399,16 @@ Si encuentras algún problema o tienes preguntas:
 - [ ] **Offline Support** con PWA
 - [ ] **Advanced Search** con filtros complejos
 - [ ] **Automated Backup** y recuperación
+
+### 🆕 Características Desktop (Electron)
+- [x] **Multi-plataforma**: Windows, macOS, Linux
+- [x] **Menú nativo** con atajos de teclado
+- [x] **Notificaciones del sistema**
+- [x] **Integración con sistema operativo**
+- [x] **Empaquetado profesional** con instaladores
+- [ ] **Auto-update** system
+- [ ] **Offline mode** con sincronización
+- [ ] **Integración con calendario** del sistema
 
 ---
 
