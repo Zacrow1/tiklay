@@ -61,13 +61,32 @@ Tiklay es un sistema de gestión completo para estudios de yoga y fitness, dise�
 - Node.js 18+
 - npm o yarn
 - Git
+- Rust y Cargo (para Tauri) - [Instalar Rust](https://rustup.rs/)
 
-### Instalación Rápida
+### Instalación por Sistema Operativo
+
+#### 🪟 Windows
+```batch
+# Opción 1: Usar el script de configuración (recomendado)
+setup-windows.bat
+
+# Opción 2: Instalación manual
+npm install
+
+# Instalar Rust (si no está instalado)
+# Descargar desde https://rustup.rs/ y ejecutar el instalador
+
+# Configurar base de datos
+npm run db:generate
+
+# Iniciar servidor de desarrollo
+npm run tauri:dev
+# o si hay problemas con PATH:
+npx tauri dev
+```
+
+#### 🐧 Linux / 🍎 macOS
 ```bash
-# Clonar el repositorio
-git clone <URL_DEL_REPOSITORIO>
-cd tiklay
-
 # Ejecutar script de configuración
 ./setup.sh
 
@@ -90,6 +109,9 @@ npm run db:push
 
 # 4. Iniciar desarrollo
 npm run dev
+
+# 5. (Opcional) Iniciar aplicación de escritorio con Tauri
+npm run tauri:dev
 ```
 
 ## 📁 Estructura del Proyecto
@@ -258,6 +280,54 @@ npx prisma migrate deploy
 # Generar cliente
 npx prisma generate
 ```
+
+### Aplicación de Escritorio (Tauri)
+```bash
+# Construir la aplicación de escritorio
+npm run tauri:build
+
+# Los binarios se generarán en src-tauri/target/release/bundle/
+```
+
+### 🔧 Solución de Problemas en Windows
+
+#### Problemas Comunes
+1. **PATH de Tauri no encontrado**
+   ```batch
+   # Usar npx en lugar de npm run
+   npx tauri dev
+   npx tauri build
+   ```
+
+2. **Problemas con permisos en Windows**
+   ```batch
+   # Ejecutar PowerShell como Administrador
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+
+3. **Rust no está en PATH**
+   ```batch
+   # Agregar Rust al PATH manualmente
+   set PATH=%PATH%;%USERPROFILE%\.cargo\bin
+   ```
+
+4. **Problemas con la compilación en Windows**
+   ```batch
+   # Instalar Visual Studio Build Tools
+   # Descargar desde: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+   # Seleccionar "Desarrollo de escritorio con C++"
+   ```
+
+5. **Errores de dependencias de Windows**
+   ```batch
+   # Limpiar caché de npm
+   npm cache clean --force
+   
+   # Reinstalar dependencias
+   rmdir /s /q node_modules
+   del package-lock.json
+   npm install
+   ```
 
 ## 🤝 Contribución
 
