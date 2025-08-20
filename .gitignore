@@ -10,6 +10,21 @@ out/
 build/
 dist/
 
+# Tauri
+src-tauri/target/
+src-tauri/target/
+src-tauri/binaries/
+src-tauri/bundle/
+src-tauri/*.pdb
+src-tauri/*.dll
+src-tauri/*.dylib
+src-tauri/*.dmg
+src-tauri/*.app
+src-tauri/*.msi
+src-tauri/*.exe
+src-tauri/*.deb
+src-tauri/*.rpm
+
 # Environment variables
 .env
 .env.local
