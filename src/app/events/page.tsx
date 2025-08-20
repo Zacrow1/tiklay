@@ -217,7 +217,8 @@ export default function EventsPage() {
     const newEvent = {
       id: Date.now().toString(),
       ...data,
-      maxAttendees: data.maxAttendees ? parseInt(data.maxAttendees) : null,
+      description: data.description || "",
+      maxAttendees: data.maxAttendees ? parseInt(data.maxAttendees) : 0,
       ticketPrice: parseFloat(data.ticketPrice),
       isActive: true,
       ticketsSold: 0,
@@ -233,23 +234,26 @@ export default function EventsPage() {
     const student = mockStudents.find(s => s.id === data.studentId)
     const event = events.find(e => e.id === data.eventId)
     
-    if (event) {
-      const newTicket = {
-        id: Date.now().toString(),
-        ...data,
-        amount: parseFloat(data.amount),
-        status: "PAID",
-        purchasedAt: new Date().toISOString().split('T')[0],
-        student,
-      }
-      
-      // Update event tickets sold count
-      setEvents(prev => prev.map(e => 
-        e.id === data.eventId 
-          ? { ...e, eventTickets: [...e.eventTickets, newTicket], ticketsSold: e.ticketsSold + 1 }
-          : e
-      ))
+    if (!student || !event) {
+      console.error('Student or event not found')
+      return
     }
+    
+    const newTicket = {
+      id: Date.now().toString(),
+      ...data,
+      amount: parseFloat(data.amount),
+      status: "PAID",
+      purchasedAt: new Date().toISOString().split('T')[0],
+      student,
+    }
+    
+    // Update event tickets sold count
+    setEvents(prev => prev.map(e => 
+      e.id === data.eventId 
+        ? { ...e, eventTickets: [...e.eventTickets, newTicket], ticketsSold: e.ticketsSold + 1 }
+        : e
+    ))
     
     ticketForm.reset()
     setIsTicketDialogOpen(false)

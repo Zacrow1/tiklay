@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search') || '';
     
     // Ordenamiento
-    const sortBy = searchParams.get('sortBy') || 'name';
+    const sortBy = searchParams.get('sortBy') || 'firstName';
     const sortOrder = searchParams.get('sortOrder') || 'asc';
     
     // Filtros
@@ -26,9 +26,10 @@ export async function GET(request: NextRequest) {
     
     if (search) {
       whereClause.OR = [
-        { name: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } },
-        { phone: { contains: search, mode: 'insensitive' } }
+        { firstName: { contains: search, mode: 'insensitive' } },
+        { lastName: { contains: search, mode: 'insensitive' } },
+        { phone: { contains: search, mode: 'insensitive' } },
+        { user: { email: { contains: search, mode: 'insensitive' } } }
       ];
     }
     
@@ -49,16 +50,12 @@ export async function GET(request: NextRequest) {
         orderBy: {
           [sortBy]: sortOrder
         },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          phone: true,
-          membershipType: true,
-          joinDate: true,
-          status: true,
-          createdAt: true,
-          updatedAt: true
+        include: {
+          user: {
+            select: {
+              email: true
+            }
+          }
         }
       }),
       db.student.count({ where: whereClause })
@@ -69,16 +66,34 @@ export async function GET(request: NextRequest) {
       by: ['status'],
       _count: {
         status: true
+      },
+      where: {
+        status: {
+          not: null
+        }
       }
     });
     
     const statusCounts = stats.reduce((acc, stat) => {
-      acc[stat.status] = stat._count.status;
+      if (stat.status) {
+        acc[stat.status] = stat._count.status;
+      }
       return acc;
     }, {} as Record<string, number>);
     
     return NextResponse.json({
-      students,
+      students: students.map(student => ({
+        id: student.id,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.user.email,
+        phone: student.phone,
+        membershipType: student.membershipType,
+        joinDate: student.joinDate,
+        status: student.status,
+        createdAt: student.createdAt,
+        updatedAt: student.updatedAt
+      })),
       pagination: {
         page,
         limit,
@@ -109,7 +124,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validar datos requeridos
-    const requiredFields = ['name', 'email', 'phone'];
+    const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
     for (const field of requiredFields) {
       if (!body[field]) {
         return NextResponse.json(
@@ -120,46 +135,65 @@ export async function POST(request: NextRequest) {
     }
     
     // Verificar si el email ya existe
-    const existingStudent = await db.student.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { email: body.email }
     });
     
-    if (existingStudent) {
+    if (existingUser) {
       return NextResponse.json(
-        { error: 'Student with this email already exists' },
+        { error: 'User with this email already exists' },
         { status: 409 }
       );
     }
     
+    // Crear usuario primero
+    const user = await db.user.create({
+      data: {
+        email: body.email,
+        name: `${body.firstName} ${body.lastName}`,
+        role: 'STUDENT'
+      }
+    });
+    
     // Crear estudiante
     const student = await db.student.create({
       data: {
-        name: body.name,
-        email: body.email,
+        userId: user.id,
+        firstName: body.firstName,
+        lastName: body.lastName,
         phone: body.phone,
         address: body.address || '',
         emergencyContact: body.emergencyContact || '',
         medicalInfo: body.medicalInfo || '',
         membershipType: body.membershipType || 'basic',
-        joinDate: body.joinDate || new Date().toISOString(),
+        joinDate: body.joinDate || new Date(),
         status: body.status || 'active',
         photo: body.photo,
         notes: body.notes
       },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        membershipType: true,
-        joinDate: true,
-        status: true,
-        createdAt: true,
-        updatedAt: true
+      include: {
+        user: {
+          select: {
+            email: true
+          }
+        }
       }
     });
     
-    return NextResponse.json(student, { status: 201 });
+    const responseStudent = {
+      id: student.id,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      email: student.user.email,
+      phone: student.phone,
+      membershipType: student.membershipType,
+      joinDate: student.joinDate,
+      status: student.status,
+      createdAt: student.createdAt,
+      updatedAt: student.updatedAt
+    };
+    
+    return NextResponse.json(responseStudent, { status: 201 });
     
   } catch (error) {
     console.error('Error creating student:', error);

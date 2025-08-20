@@ -192,6 +192,11 @@ export default function ClassesPage() {
     const activity = mockActivities.find(a => a.id === data.activityId)
     const teacher = mockTeachers.find(t => t.id === data.teacherId)
     
+    if (!activity || !teacher) {
+      console.error('Activity or teacher not found')
+      return
+    }
+    
     if (editingClass) {
       // Update existing class
       setClasses(prev => prev.map(classItem => 
@@ -199,6 +204,7 @@ export default function ClassesPage() {
           ? { 
               ...classItem, 
               ...data,
+              dayOfWeek: parseInt(data.dayOfWeek),
               activity,
               teacher,
               maxStudents: parseInt(data.maxStudents),
@@ -210,6 +216,7 @@ export default function ClassesPage() {
       const newClass = {
         id: Date.now().toString(),
         ...data,
+        dayOfWeek: parseInt(data.dayOfWeek),
         maxStudents: parseInt(data.maxStudents),
         isActive: true,
         enrolledStudents: 0,
