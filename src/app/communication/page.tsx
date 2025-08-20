@@ -79,8 +79,8 @@ const announcementFormSchema = z.object({
   message: z.string().min(1, "Ingresa el mensaje"),
   audience: z.string().min(1, "Selecciona la audiencia"),
   priority: z.string().min(1, "Selecciona la prioridad"),
-  sendEmail: z.boolean().default(false),
-  sendSMS: z.boolean().default(false),
+  sendEmail: z.boolean(),
+  sendSMS: z.boolean(),
 })
 
 type AnnouncementFormValues = z.infer<typeof announcementFormSchema>

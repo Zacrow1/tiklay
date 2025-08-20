@@ -107,7 +107,7 @@ cp .env.example .env
 npx prisma generate
 npm run db:push
 
-# 4. Iniciar desarrollo
+# 4. Iniciar desarrollo web
 npm run dev
 
 # 5. (Opcional) Iniciar aplicación de escritorio con Tauri
@@ -137,6 +137,10 @@ tiklay/
 │   │   └── ui/                # shadcn/ui components
 │   ├── hooks/                 # Custom React hooks
 │   └── lib/                   # Utilities y configuración
+├── src-tauri/                 # 🆕 Código fuente de Tauri (Rust)
+│   ├── src/                   # Código Rust de la aplicación
+│   ├── tauri.conf.json        # Configuración de Tauri
+│   └── Cargo.toml            # Dependencias de Rust
 ├── prisma/
 │   └── schema.prisma         # Database schema
 ├── public/                   # Static assets
@@ -208,6 +212,14 @@ Transferencia requerida: $135.000 + $50.000 = $185.000
 - **Socket.io** para comunicación en tiempo real
 - **NextAuth.js** para autenticación
 
+### Aplicación de Escritorio
+- **Tauri** - Framework moderno para aplicaciones de escritorio
+  - **Rendimiento superior**: Aplicaciones más ligeras y rápidas
+  - **Seguridad mejorada**: Menos superficie de ataque que Electron
+  - **Tamaño reducido**: Binarios significativamente más pequeños
+  - **Multiplataforma**: Windows, macOS y Linux
+  - **Integración nativa**: Acceso directo a APIs del sistema operativo
+
 ### Desarrollo
 - **ESLint** para calidad de código
 - **Prettier** para formato (opcional)
@@ -260,13 +272,21 @@ Z_AI_API_KEY="tu-api-key"
 
 ## 🚀 Despliegue
 
-### Producción
+### Aplicación Web
 ```bash
 # Construir la aplicación
 npm run build
 
 # Iniciar servidor de producción
 npm start
+```
+
+### Aplicación de Escritorio (Tauri)
+```bash
+# Construir la aplicación de escritorio
+npm run tauri:build
+
+# Los binarios se generarán en src-tauri/target/release/bundle/
 ```
 
 ### Base de Datos Producción
@@ -288,6 +308,14 @@ npm run tauri:build
 
 # Los binarios se generarán en src-tauri/target/release/bundle/
 ```
+
+### Distribución de Tauri
+Tauri genera binarios nativos para cada plataforma:
+- **Windows**: `.msi` installer
+- **macOS**: `.dmg` disk image y `.app` bundle
+- **Linux**: `.deb`, `.AppImage`, y otros formatos
+
+Los binarios finales son significativamente más pequeños que los de Electron (típicamente 5-15MB vs 100+MB).
 
 ### 🔧 Solución de Problemas en Windows
 
@@ -369,6 +397,7 @@ Si encuentras algún problema o tienes preguntas:
 ## 🎯 Roadmap
 
 ### Próximas Features
+- [x] **Aplicación de Escritorio** con Tauri (más ligera y rápida)
 - [ ] **Móvil App** versión nativa
 - [ ] **Integración con Google Calendar**
 - [ ] **Sistema de membresías** y suscripciones
@@ -378,11 +407,13 @@ Si encuentras algún problema o tienes preguntas:
 - [ ] **Advanced Analytics** con dashboards personalizados
 
 ### Mejoras Planeadas
+- [x] **Rendimiento Optimizado** con Tauri para aplicación de escritorio
 - [ ] **UI/UX Redesign** con nuevas tendencias
-- [ ] **Performance Optimization** para grandes volúmenes
+- [ ] **Performance Optimization** para grandes volúmenes de datos
 - [ ] **Offline Support** con PWA
 - [ ] **Advanced Search** con filtros complejos
 - [ ] **Automated Backup** y recuperación
+- [ ] **Notificaciones Nativas** integradas con el sistema operativo
 
 ---
 

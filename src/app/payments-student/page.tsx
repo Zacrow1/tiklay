@@ -38,8 +38,7 @@ import {
   Banknote,
   Receipt,
   History,
-  Eye,
-  Input
+  Eye
 } from "lucide-react"
 
 // Mock data for student payments
